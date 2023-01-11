@@ -1,25 +1,25 @@
 <div id="container">
   <h2>People in the room</h2>
   <p>(and their preference)</p>
-  <h3>Max number: {{maxNumber}}</h3>
-  <h3>Current number: {{currentNumber}}</h3>
-  <p *ngIf="currentNumber>=maxNumber"><strong>Full is room.</strong> Hint: Remove one that not choose Angular :-) </p>
+  <h3>Max number: {{max}}</h3>
+  <h3>Current number: {{data.length}}</h3>
+  <p *ngIf="data.length===max"><strong>Full is room.</strong> Hint: Remove one that not choose Angular :-) </p>
 
-  <input type="text" placeholder="enter name" [(ngModel)]="nameInput" />
-  <select [(ngModel)]="selectedFramework">
+  <input type="text" placeholder="enter name" [(ngModel)]="name" />
+  <select [(ngModel)]="preference">
     <option *ngFor="let lang of frameworks">{{lang}}</option>
   </select>
-  <button (click)="add()" [disabled]="currentNumber===maxNumber || nameInput===''">Add</button>
+  <button (click)="add()" [disabled]="data.length===max || name===''">Add</button>
   <br />
   <h2>Currently in the room are:</h2>
   <button (click)="clearBtn()">Clear</button>
   <br />
   <ul>
-    <ng-container *ngFor="let item of nameList">
-      <li>{{item}}<button class="btnX" (click)="removePerson(item)">X</button><button class="btnEdit"
-          (click)="editBtn(item)">EDIT</button></li>
-    </ng-container>
-
+    <li *ngFor="let item of data; let idx = index">{{item.name}} - likes {{item.preference}}<button class="btnX"
+        (click)="remove(item)">X</button><button class="btnEdit" (click)="edit(idx)">EDIT</button></li>
   </ul>
+
+
+
 
 </div>
